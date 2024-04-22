@@ -1,2 +1,80 @@
-Перамога не будзде		
 
+#include <iostream>
+#include <string>
+
+class BitString {
+private:
+    std::string bits;
+
+public:
+    void Init(const std::string& initBits) {
+        bits = initBits;
+    }
+
+    void Read() {
+        std::cout << "Введите битовую строку: ";
+        std::cin >> bits;
+    }
+
+    void Display() const {
+        std::cout << "Битовая строка: " << bits << std::endl;
+    }
+
+    BitString operator&(const BitString& other) const {
+        std::string result = bits;
+        for (size_t i = 0; i < bits.size(); ++i) {
+            result[i] = (bits[i] == '1' && other.bits[i] == '1') ? '1' : '0';
+        }
+        return BitString(result);00
+    }
+
+    BitString operator|(const BitString& other) const {
+        std::string result = bits;
+        for (size_t i = 0; i < bits.size(); ++i) {
+            result[i] = (bits[i] == '1' || other.bits[i] == '1') ? '1' : '0';
+        }
+        return BitString(result);
+    }
+
+    BitString operator^(const BitString& other) const {
+        std::string result = bits;
+        for (size_t i = 0; i < bits.size(); ++i) {
+            result[i] = (bits[i] != other.bits[i]) ? '1' : '0';
+        }
+        return BitString(result);
+    }
+
+    BitString operator~() const {
+        std::string result = bits;        for (size_t i = 0; i < bits.size(); ++i) {
+            result[i] = (bits[i] == '1') ? '0' : '1';
+        }
+        return BitString(result);
+    }
+
+    BitString(const std::string& initBits = "") : bits(initBits) {}
+};
+
+int main()
+    BitString bit1, bit2;
+    bit1.Read();
+    bit2.Read();
+
+    BitString andResult = bit1 & bit2;
+    BitString orResult = bit1 | bit2;
+    BitString xorResult = bit1 ^ bit2;
+    BitString notResult = ~bit1;
+
+    std::cout << "Результат операции AND: ";
+    andResult.Display();
+
+    std::cout << "Результат операции OR: ";
+    orResult.Display();
+
+    std::cout << "Результат операции XOR: ";
+    xorResult.Display();
+
+    std::cout << "Результат операции NOT: ";
+    notResult.Display();
+
+    return 0;
+} 
