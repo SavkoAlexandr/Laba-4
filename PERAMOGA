@@ -1,0 +1,73 @@
+:x
+#include <iostream>
+#include <cmath>
+
+class Vector {
+private:
+    double x, y, z;
+
+public:
+    Vector(double xVal, double yVal, double zVal) {
+        x = xVal;
+        y = yVal;
+        z = zVal;
+    }
+
+    // Метод для вычисления модуля вектора
+    double calculateMagnitude() {
+        return sqrt(x * x + y * y + z * z);
+    }
+
+    // Метод для вычисления скалярного произведения
+    double dotProduct(Vector v) {
+        return x * v.x + y * v.y + z * v.z;
+    }
+
+    // Метод для сложения векторов
+    Vector add(Vector v) {
+        return Vector(x + v.x, y + v.y, z + v.z);
+    }
+
+    // Метод для вычитания векторов
+    Vector subtract(Vector v) {
+        return Vector(x - v.x, y - v.y, z - v.z);
+    }
+
+    // Метод для умножения вектора на константу
+    Vector multiplyByConstant(double c) {
+        return Vector(x * c, y * c, z * c);
+    }
+
+    // Метод для вывода вектора
+    void printVector() {
+        std::cout << "(" << x << ", " << y << ", " << z << ")" << std::endl;
+    }
+};
+
+int main() {
+    const int numVectors = 3;
+    Vector vectors[numVectors] = {Vector(1, 2, 3), Vector(4, 5, 6), Vector(7, 8, 9)};
+
+    // Выводим вектора с заданным модулем
+    const double targetMagnitude = 5.0;
+    for (int i = 0; i < numVectors; i++) {
+        if (vectors[i].calculateMagnitude() == targetMagnitude) {
+            vectors[i].printVector();
+        }
+    }
+
+    // Определяем вектор с наибольшей суммой элементов
+    double maxSum = -1;
+    int maxIndex = -1;
+    for (int i = 0; i < numVectors; i++) {
+        double sum = vectors[i].calculateMagnitude();
+        if (sum > maxSum) {
+            maxSum = sum;
+            maxIndex = i;
+        }
+    }
+    std::cout << "Вектор с наибольшей суммой элементов: ";
+    vectors[maxIndex].printVector();
+
+    return 0;
+}
